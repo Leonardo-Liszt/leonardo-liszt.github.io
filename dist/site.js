@@ -5,7 +5,7 @@
       __defProp(target, name, { get: all[name], enumerable: true });
   };
 
-  // js/lib/three.module.min.js
+  // diffgeo-viz/js/lib/three.module.min.js
   var t = "160";
   var e = { LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2 };
   var n = { ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3 };
@@ -9623,7 +9623,7 @@
   };
   "undefined" != typeof __THREE_DEVTOOLS__ && __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent("register", { detail: { revision: t } })), "undefined" != typeof window && (window.__THREE__ ? console.warn("WARNING: Multiple instances of Three.js being imported.") : window.__THREE__ = t);
 
-  // js/lib/OrbitControls.js
+  // diffgeo-viz/js/lib/OrbitControls.js
   var _changeEvent = { type: "change" };
   var _startEvent = { type: "start" };
   var _endEvent = { type: "end" };
@@ -10337,7 +10337,7 @@
     }
   };
 
-  // js/core/math3d.js
+  // diffgeo-viz/js/core/math3d.js
   var V = {
     add: (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]],
     sub: (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]],
@@ -10682,7 +10682,7 @@
     return a + b;
   }
 
-  // js/core/core.js
+  // diffgeo-viz/js/core/core.js
   var K2 = (tex, display = false) => window.katex.renderToString(tex, { displayMode: display, throwOnError: false });
   var KD = (tex) => K2(tex, true);
   function renderInlineMath(text) {
@@ -11328,7 +11328,7 @@
     } };
   }
 
-  // js/modules/m00-home.js
+  // diffgeo-viz/js/modules/m00-home.js
   var m00_home_exports = {};
   __export(m00_home_exports, {
     en: () => en,
@@ -11400,7 +11400,7 @@
   function teardown() {
   }
 
-  // js/modules/m01-charts.js
+  // diffgeo-viz/js/modules/m01-charts.js
   var m01_charts_exports = {};
   __export(m01_charts_exports, {
     en: () => en2,
@@ -11754,7 +11754,7 @@
     c2B = null;
   }
 
-  // js/modules/m02-tangent.js
+  // diffgeo-viz/js/modules/m02-tangent.js
   var m02_tangent_exports = {};
   __export(m02_tangent_exports, {
     en: () => en3,
@@ -11976,7 +11976,7 @@
     viz = null;
   }
 
-  // js/modules/m03-forms.js
+  // diffgeo-viz/js/modules/m03-forms.js
   var m03_forms_exports = {};
   __export(m03_forms_exports, {
     en: () => en4,
@@ -12217,7 +12217,7 @@
     cB = null;
   }
 
-  // js/modules/m04-stokes.js
+  // diffgeo-viz/js/modules/m04-stokes.js
   var m04_stokes_exports = {};
   __export(m04_stokes_exports, {
     en: () => en5,
@@ -12577,7 +12577,7 @@
     viz2 = null;
   }
 
-  // js/modules/m05-lie.js
+  // diffgeo-viz/js/modules/m05-lie.js
   var m05_lie_exports = {};
   __export(m05_lie_exports, {
     en: () => en6,
@@ -12763,7 +12763,7 @@
     c3 = null;
   }
 
-  // js/modules/m06-parallel.js
+  // diffgeo-viz/js/modules/m06-parallel.js
   var m06_parallel_exports = {};
   __export(m06_parallel_exports, {
     en: () => en7,
@@ -13112,7 +13112,7 @@
     c22 = null;
   }
 
-  // js/modules/m07-geodesics.js
+  // diffgeo-viz/js/modules/m07-geodesics.js
   var m07_geodesics_exports = {};
   __export(m07_geodesics_exports, {
     en: () => en8,
@@ -13364,7 +13364,7 @@
     c23 = null;
   }
 
-  // js/modules/m08-curvature.js
+  // diffgeo-viz/js/modules/m08-curvature.js
   var m08_curvature_exports = {};
   __export(m08_curvature_exports, {
     en: () => en9,
@@ -13658,7 +13658,7 @@
     c24 = null;
   }
 
-  // js/modules/m09-schwarzschild.js
+  // diffgeo-viz/js/modules/m09-schwarzschild.js
   var m09_schwarzschild_exports = {};
   __export(m09_schwarzschild_exports, {
     en: () => en10,
@@ -14076,7 +14076,7 @@
     c4 = null;
   }
 
-  // js/modules/m10-topology.js
+  // diffgeo-viz/js/modules/m10-topology.js
   var m10_topology_exports = {};
   __export(m10_topology_exports, {
     en: () => en11,
@@ -14338,7 +14338,7 @@
     c26 = null;
   }
 
-  // js/modules/m11-hopf.js
+  // diffgeo-viz/js/modules/m11-hopf.js
   var m11_hopf_exports = {};
   __export(m11_hopf_exports, {
     en: () => en12,
@@ -14491,7 +14491,7 @@
     viz7 = null;
   }
 
-  // js/modules/m12-hodge.js
+  // diffgeo-viz/js/modules/m12-hodge.js
   var m12_hodge_exports = {};
   __export(m12_hodge_exports, {
     en: () => en13,
@@ -14628,7 +14628,7 @@
     viz8 = null;
   }
 
-  // js/modules/m13-hyperbolic.js
+  // diffgeo-viz/js/modules/m13-hyperbolic.js
   var m13_hyperbolic_exports = {};
   __export(m13_hyperbolic_exports, {
     angleAt: () => angleAt,
@@ -14997,7 +14997,7 @@
     c5 = null;
   }
 
-  // js/app.js
+  // diffgeo-viz/js/app.js
   var MODULES = [m00_home_exports, m01_charts_exports, m02_tangent_exports, m03_forms_exports, m04_stokes_exports, m05_lie_exports, m06_parallel_exports, m07_geodesics_exports, m08_curvature_exports, m09_schwarzschild_exports, m10_topology_exports, m11_hopf_exports, m12_hodge_exports, m13_hyperbolic_exports];
   var sidebar = document.getElementById("sidebar");
   var content = document.getElementById("content");
@@ -15059,9 +15059,16 @@
     const m = MODULES.find((x) => x.id === location.hash.slice(1));
     if (m && m !== current) show(m);
   });
-  buildSidebar();
-  var initial = MODULES.find((x) => x.id === location.hash.slice(1)) ?? MODULES[0];
-  show(initial);
+  function init() {
+    buildSidebar();
+    const initial = MODULES.find((x) => x.id === location.hash.slice(1)) ?? MODULES[0];
+    show(initial);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
 /**
  * @license
