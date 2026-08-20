@@ -10877,6 +10877,20 @@
       opts.headW ?? 0.08
     );
   }
+  function setArrowAlpha(ah2, opacity) {
+    const apply = (mat) => {
+      if (mat && typeof mat === "object") {
+        mat.transparent = true;
+        mat.opacity = opacity;
+        if (mat.depthWrite !== void 0) mat.depthWrite = false;
+      }
+    };
+    if (Array.isArray(ah2.material)) ah2.material.forEach(apply);
+    else if (ah2.line && ah2.line.material) {
+      apply(ah2.line.material);
+      if (ah2.cone && ah2.cone.material) apply(ah2.cone.material);
+    } else if (ah2.material) apply(ah2.material);
+  }
   function sphereMark(pos, color = 16766814, r = 0.055) {
     const m = new Xs(
       new Zu(r, 20, 14),
@@ -12880,11 +12894,9 @@
       viz3.add(curveLine);
       vArrow = arrow([0, 0, 0], [1, 0, 0], 16766814, { len: 0.5 });
       ghostArrow = arrow([0, 0, 0], [1, 0, 0], 16766814, { len: 0.5, head: 0.1 });
-      ghostArrow.material.transparent = true;
-      ghostArrow.material.opacity = 0.25;
+      setArrowAlpha(ghostArrow, 0.25);
       rigidArrow = arrow([0, 0, 0], [1, 0, 0], 16777215, { len: 0.42 });
-      rigidArrow.material.transparent = true;
-      rigidArrow.material.opacity = 0.55;
+      setArrowAlpha(rigidArrow, 0.55);
       tPlane = new Xs(
         new ru(0.5, 36),
         new es({ color: 5809919, transparent: true, opacity: 0.14, side: p, depthWrite: false })
