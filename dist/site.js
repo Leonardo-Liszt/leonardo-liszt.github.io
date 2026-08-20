@@ -11832,7 +11832,8 @@
     const surfSel = sel(panel, {
       value: "sphere",
       options: { sphere: "\u7403\u9762 S\xB2", torus: "\u73AF\u9762 T\xB2", paraboloid: "\u65CB\u8F6C\u629B\u7269\u9762" },
-      cb: () => {
+      cb: (v) => {
+        state2.surface = v;
         rebuild();
         clampUV();
         sync();
@@ -11841,7 +11842,8 @@
     const fldSel = sel(panel, {
       value: "rot",
       options: Object.fromEntries(Object.entries(FIELDS).map(([k, f]) => [k, f.label])),
-      cb: () => {
+      cb: (v) => {
+        state2.field = v;
         buildFieldArrows();
         recomputeCurve();
       }
@@ -12077,12 +12079,18 @@
     const fSel = sel(panel, {
       value: "paraboloid",
       options: Object.fromEntries(Object.entries(FUNCS).map(([k, v]) => [k, v.label])),
-      cb: () => drawA()
+      cb: (v) => {
+        state3.fname = v;
+        drawA();
+      }
     });
     const mSel = sel(panel, {
       value: "df",
       options: { df: "\u03B1 = df\uFF08\u68AF\u5EA6\u5F62\u5F0F\u7684 1-\u5F62\u5F0F\uFF09", ydx: "\u03B1 = y dx\uFF08\u975E\u68AF\u5EA6\u7684 1-\u5F62\u5F0F\uFF09" },
-      cb: () => drawA()
+      cb: (v) => {
+        state3.mode = v;
+        drawA();
+      }
     });
     const angSl = slider(panel, { label: "\u6D4B\u8BD5\u5411\u91CF X \u7684\u65B9\u5411 \u03B8", min: 0, max: 2 * Math.PI, step: 0.01, value: state3.ang, fmt: (v) => (v * 180 / Math.PI).toFixed(0) + "\xB0", cb: (v) => {
       state3.ang = v;
@@ -12321,7 +12329,8 @@
     const fSel = sel(panel, {
       value: "rot",
       options: Object.fromEntries(Object.entries(FIELDS2D).map(([k, v]) => [k, v.label])),
-      cb: () => {
+      cb: (v) => {
+        st.field = v;
         precompute();
         draw1();
       }
@@ -12846,7 +12855,8 @@
     const curvSel = sel(panel, {
       value: "lat",
       options: { lat: "\u7EAC\u5708\uFF08\u95ED\u5408\uFF09", great: "\u5927\u5706\u5F27\uFF08\u95ED\u5408\uFF09", spiral: "\u87BA\u65CB\uFF08\u5F00\uFF09" },
-      cb: () => {
+      cb: (v) => {
+        st3.curve = v;
         buildCurve();
         sync();
       }
