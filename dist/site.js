@@ -15026,6 +15026,14 @@
   ];
   var current = null;
   function buildSidebar() {
+    const fold = document.createElement("button");
+    fold.id = "sidebar-fold";
+    fold.textContent = "\u{1F579} \u6536\u8D77\u4FA7\u680F \u25C0";
+    fold.addEventListener("click", () => {
+      const collapsed = sidebar.classList.toggle("collapsed");
+      fold.textContent = collapsed ? "\u{1F579} \u25B6" : "\u{1F579} \u6536\u8D77\u4FA7\u680F \u25C0";
+    });
+    sidebar.appendChild(fold);
     for (const sec of SECTIONS) {
       const h2 = document.createElement("div");
       h2.className = "side-sec";

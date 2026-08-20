@@ -47,6 +47,7 @@ body {
     font-size: 20px; line-height: 1; padding: 6px 10px;
     cursor: pointer; margin-left: 8px;
   }
+  #sidebar-fold { display: none; }  /* 移动端用 ☰ 抽屉，不显示桌面折叠按钮 */
   .hint { display: none; }               /* 窄屏隐藏操作提示 */
   .brand-sub { display: none; }           /* 隐藏副标题节约空间 */
   #layout { position: relative; }
@@ -90,7 +91,28 @@ body {
   border-right: 1px solid var(--line);
   overflow-y: auto;
   padding: 12px 10px 30px;
+  transition: width .2s ease, padding .2s ease;
 }
+#sidebar.collapsed {
+  width: 54px;
+  padding: 12px 6px 30px;
+}
+#sidebar.collapsed .side-sec,
+#sidebar.collapsed .side-zh,
+#sidebar.collapsed .side-en,
+#sidebar.collapsed .side-item > span { display: none; }
+#sidebar.collapsed .side-item { justify-content: center; padding: 9px 0; }
+#sidebar.collapsed .side-num { margin: 0; }
+/* 侧栏折叠切换按钮（桌面端） */
+#sidebar-fold {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 6px 0; margin-bottom: 6px;
+  background: var(--bg3); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  cursor: pointer; font-size: 13px;
+}
+#sidebar-fold:hover { border-color: var(--accent); color: #fff; }
+#sidebar.collapsed #sidebar-fold { font-size: 15px; }
 .side-sec {
   font-size: 11px; letter-spacing: 2px; color: var(--text-dim);
   margin: 16px 8px 6px; text-transform: uppercase;
