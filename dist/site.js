@@ -11103,15 +11103,15 @@
     }
     return merged;
   }
-  function enableDrag(viz9, mesh, spec, onUV) {
+  function enableDrag(viz8, mesh, spec, onUV) {
     const ray = new rm();
     const ndc = new ti();
-    const dom = viz9.renderer.domElement;
+    const dom = viz8.renderer.domElement;
     const rect = () => dom.getBoundingClientRect();
     const pick = (cx, cy) => {
       ndc.x = (cx - rect().left) / rect().width * 2 - 1;
       ndc.y = -((cy - rect().top) / rect().height) * 2 + 1;
-      ray.setFromCamera(ndc, viz9.camera);
+      ray.setFromCamera(ndc, viz8.camera);
       const hits = ray.intersectObject(mesh, false);
       if (hits.length) {
         const p2 = hits[0].point;
@@ -11503,7 +11503,7 @@
     const stage = host.querySelector("#stageA");
     const panel = host.querySelector("#panelA");
     vizA = new Viz(stage, { cameraPos: [3.6, -2.8, 2.6] });
-    let mesh = null, grid = null, marker = null, dragOff6 = null;
+    let mesh = null, grid = null, marker = null, dragOff5 = null;
     const surfSel = sel(panel, {
       value: "sphere",
       options: { sphere: "\u7403\u9762 S\xB2", torus: "\u73AF\u9762 T\xB2", paraboloid: "\u65CB\u8F6C\u629B\u7269\u9762", saddle: "\u978D\u9762 z=xy" },
@@ -11525,7 +11525,7 @@
     const out = readout(panel, "\u03C3(u,v) = ");
     function rebuild() {
       vizA.remove(mesh, grid, marker);
-      dragOff6?.();
+      dragOff5?.();
       const spec = SURFACES[state.surface];
       mesh = meshOf(spec, { color: 4157400, opacity: 0.92 });
       grid = gridLinesOn(spec);
@@ -11535,7 +11535,7 @@
       uSl.el.querySelector("input").max = spec.u1;
       vSl.el.querySelector("input").min = spec.v0;
       vSl.el.querySelector("input").max = spec.v1;
-      dragOff6 = enableDrag(vizA, mesh, spec, (u2, v) => {
+      dragOff5 = enableDrag(vizA, mesh, spec, (u2, v) => {
         state.u = u2;
         state.v = v;
         syncAll();
@@ -11559,7 +11559,7 @@
     rebuild();
     clampUV();
     syncAll();
-    cleanA.push(() => dragOff6?.());
+    cleanA.push(() => dragOff5?.());
     const host2 = host.querySelector("#stageA2");
     c2A = new C2(host2, { xmin: 0, xmax: 1, ymin: 0, ymax: 1 });
     c2A.needDraw = () => syncAll();
@@ -11826,7 +11826,7 @@
     const stage = host.querySelector("#stage");
     const panel = host.querySelector("#panel");
     viz = new Viz(stage, { cameraPos: [3.6, -2.8, 2.6] });
-    let mesh = null, grid = null, marker = null, tPlane = null, dragOff6 = null;
+    let mesh = null, grid = null, marker = null, tPlane = null, dragOff5 = null;
     let arrU = null, arrV = null, arrW = null, paraLines = null, fieldSegs = null, curve = null, particle = null;
     let curvePts = [];
     const surfSel = sel(panel, {
@@ -11865,7 +11865,7 @@
     } });
     function rebuild() {
       viz.remove(mesh, grid, marker, tPlane, arrU, arrV, arrW, paraLines, fieldSegs, curve, particle);
-      dragOff6?.();
+      dragOff5?.();
       const spec = SURFACES[state2.surface];
       mesh = meshOf(spec, { color: 4157400, opacity: 0.9 });
       grid = gridLinesOn(spec, { opacity: 0.55 });
@@ -11882,7 +11882,7 @@
       curve = polyline([], 16766814, 2);
       particle = sphereMark([0, 0, 0], 16769154, 0.07);
       viz.add(mesh, grid, marker, tPlane, arrU, arrV, arrW, paraLines, fieldSegs, curve, particle);
-      dragOff6 = enableDrag(viz, mesh, spec, (u2, v) => {
+      dragOff5 = enableDrag(viz, mesh, spec, (u2, v) => {
         if (spec.id === "sphere") {
           u2 = Math.min(Math.max(u2, 0.12), Math.PI - 0.12);
         }
@@ -11983,7 +11983,7 @@
     rebuild();
     clampUV();
     sync();
-    cClean.push(() => dragOff6?.());
+    cClean.push(() => dragOff5?.());
   }
   function teardown3() {
     for (const f of cClean) f();
@@ -12335,7 +12335,8 @@
         draw1();
       }
     });
-    const rSl = slider(panel, { label: "\u5706\u76D8\u534A\u5F84 R", min: 0.4, max: 2.5, step: 0.05, value: st.R, cb: () => {
+    const rSl = slider(panel, { label: "\u5706\u76D8\u534A\u5F84 R", min: 0.4, max: 2.5, step: 0.05, value: st.R, cb: (v) => {
+      st.R = v;
       precompute();
       draw1();
     } });
@@ -12441,9 +12442,18 @@
   }
   function setupT2(stage, panel) {
     c2 = new C2(stage, { xmin: -2.9, xmax: 2.9, ymin: -2.9, ymax: 2.9 });
-    const rSl = slider(panel, { label: "\u56DE\u8DEF\u534A\u5F84 R", min: 0.45, max: 2.5, step: 0.05, value: st.loopR, cb: () => draw2() });
-    const cSl = slider(panel, { label: "\u5706\u5FC3 x \u504F\u79FB", min: -1.5, max: 1.5, step: 0.05, value: st.lcx, cb: () => draw2() });
-    const cSl2 = slider(panel, { label: "\u5706\u5FC3 y \u504F\u79FB", min: -1.5, max: 1.5, step: 0.05, value: st.lcy, cb: () => draw2() });
+    const rSl = slider(panel, { label: "\u56DE\u8DEF\u534A\u5F84 R", min: 0.45, max: 2.5, step: 0.05, value: st.loopR, cb: (v) => {
+      st.loopR = v;
+      draw2();
+    } });
+    const cSl = slider(panel, { label: "\u5706\u5FC3 x \u504F\u79FB", min: -1.5, max: 1.5, step: 0.05, value: st.lcx, cb: (v) => {
+      st.lcx = v;
+      draw2();
+    } });
+    const cSl2 = slider(panel, { label: "\u5706\u5FC3 y \u504F\u79FB", min: -1.5, max: 1.5, step: 0.05, value: st.lcy, cb: (v) => {
+      st.lcy = v;
+      draw2();
+    } });
     const playBtn = btn(panel, { label: "\u25B6 \u7ED5\u5708\u52A8\u753B", cb: () => {
       st.loopPlaying = !st.loopPlaying;
       playBtn.el.classList.toggle("on", st.loopPlaying);
@@ -13402,9 +13412,8 @@
   var zh10 = "\u66F2\u7387\u4E0E Gauss\u2013Bonnet";
   var en9 = "Curvature & Gauss\u2013Bonnet";
   var st5 = { surface: "sphere", u: 1, v: 0.8, theta: 1, poly: "tetra", showCirc: true };
-  var viz5 = null;
+  var vizs = [];
   var c24 = null;
-  var dragOff3 = null;
   var KMIN = -1.3;
   var KMAX = 1.3;
   var kColor = (K3) => colormap((Math.min(Math.max(isFinite(K3) ? K3 : 0, KMIN), KMAX) - KMIN) / (KMAX - KMIN));
@@ -13443,9 +13452,8 @@
     const sw = (t2) => {
       for (const b of tabs) b.classList.toggle("on", b.dataset.t === t2);
       for (const [k, p2] of Object.entries(panels)) p2.style.display = k === t2 ? "" : "none";
-      if (t2 === "1") viz5?.resize();
-      if (t2 === "2") viz5?.resize();
-      if (t2 === "3") viz5?.resize();
+      const vi2 = { 1: 0, 2: 1, 3: 2 }[t2];
+      vizs[vi2]?.resize();
     };
     for (const b of tabs) b.addEventListener("click", () => sw(b.dataset.t));
     setup1(host.querySelector("#stage1"), host.querySelector("#panel1"));
@@ -13453,9 +13461,10 @@
     setup3(host.querySelector("#stage3"), host.querySelector("#panel3"));
   }
   function setup1(stage, panel) {
-    viz5 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
+    const mviz = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
+    vizs.push(mviz);
     let mesh = null, grid = null, marker = null;
-    let circ1 = null, circ2 = null, tPlane = null;
+    let circ1 = null, circ2 = null, tPlane = null, dragOff5 = null;
     const surfSel = sel(panel, {
       value: "sphere",
       options: { sphere: "\u7403\u9762 S\xB2 (K=1)", torus: "\u73AF\u9762 T\xB2 (K \u53D8\u53F7)", paraboloid: "\u629B\u7269\u9762 (K>0)", saddle: "\u978D\u9762 (K<0)", pseudosphere: "\u4F2A\u7403\u9762 (K=\u22121)" },
@@ -13481,8 +13490,8 @@
     <span style="font-size:12px;color:#8fa2c8">${KMIN} \u2026 ${KMAX}</span></div>`);
     panel.appendChild(legend);
     function rebuild() {
-      viz5.remove(mesh, grid, marker, circ1, circ2, tPlane);
-      dragOff3?.();
+      mviz.remove(mesh, grid, marker, circ1, circ2, tPlane);
+      dragOff5?.();
       const spec = SURFACES[st5.surface];
       mesh = meshOf(spec, { colorFn: (u2, v) => kColor(gaussianCurvature(spec, u2, v)), opacity: 0.94, nu: 60, nv: 80 });
       grid = gridLinesOn(spec, { opacity: 0.35 });
@@ -13493,9 +13502,9 @@
       );
       circ1 = polyline([], 8315043, 2);
       circ2 = polyline([], 16739179, 2);
-      viz5.add(mesh, grid, marker, tPlane, circ1, circ2);
+      mviz.add(mesh, grid, marker, tPlane, circ1, circ2);
       circ1.visible = circ2.visible = st5.showCirc;
-      dragOff3 = enableDrag(viz5, mesh, spec, (u2, v) => {
+      dragOff5 = enableDrag(mviz, mesh, spec, (u2, v) => {
         st5.u = u2;
         st5.v = v;
         sync();
@@ -13544,10 +13553,11 @@
     sync();
   }
   function setup2(stage, panel) {
-    viz5 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
+    const mviz = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
+    vizs.push(mviz);
     const spec = SURFACES.sphere;
     const mesh = meshOf(spec, { colorFn: (u2, v) => [0.3, 0.45, 0.85], opacity: 0.9, nu: 48, nv: 72 });
-    viz5.add(mesh, gridLinesOn(spec, { opacity: 0.4 }));
+    mviz.add(mesh, gridLinesOn(spec, { opacity: 0.4 }));
     const thSl = slider(panel, { label: "\u7403\u51A0\u6781\u89D2 \u03B8", min: 0.15, max: Math.PI - 0.05, step: 0.01, value: st5.theta, fmt: (v) => (v * 180 / Math.PI).toFixed(0) + "\xB0", cb: (v) => {
       st5.theta = v;
       update();
@@ -13598,7 +13608,8 @@
     update();
   }
   function setup3(stage, panel) {
-    viz5 = new Viz(stage, { cameraPos: [3.2, -2.4, 2.4] });
+    const mviz = new Viz(stage, { cameraPos: [3.2, -2.4, 2.4] });
+    vizs.push(mviz);
     const selP = sel(panel, {
       value: "tetra",
       options: { tetra: "\u6B63\u56DB\u9762\u4F53\uFF08\u03C7=2\uFF09", cube: "\u7ACB\u65B9\u4F53\uFF08\u03C7=2\uFF09", octa: "\u6B63\u516B\u9762\u4F53\uFF08\u03C7=2\uFF09" },
@@ -13629,7 +13640,7 @@
       return { vs: vs2, faces };
     }
     function build() {
-      viz5.remove(mesh);
+      mviz.remove(mesh);
       const { vs: vs2, faces } = polyData(st5.poly);
       const nv = vs2.length;
       const deficit = new Array(nv).fill(2 * Math.PI);
@@ -13661,8 +13672,8 @@
       geo2.setAttribute("normal", new vs(nor, 3));
       geo2.setAttribute("color", new vs(col, 3));
       mesh = new Xs(geo2, new sd({ vertexColors: true, roughness: 0.5, metalness: 0.1, side: p }));
-      viz5.add(mesh);
-      viz5.add(new xh(
+      mviz.add(mesh);
+      mviz.add(new xh(
         new pu(geo2),
         new hh({ color: 659234 })
       ));
@@ -13673,9 +13684,8 @@
     build();
   }
   function teardown9() {
-    dragOff3?.();
-    viz5?.dispose();
-    viz5 = null;
+    for (const v of vizs) v?.dispose();
+    vizs.length = 0;
     c24?.dispose();
     c24 = null;
   }
@@ -14114,9 +14124,9 @@
   var zh12 = "\u6574\u4F53\u62D3\u6251\u4E0E de Rham \u4E0A\u540C\u8C03";
   var en11 = "Global Topology & de Rham Cohomology";
   var st7 = { tab: "1", surface: "sphere", field: "rot" };
-  var viz6 = null;
+  var viz5 = null;
   var c26 = null;
-  var dragOff4 = null;
+  var dragOff3 = null;
   var FIELDS3 = {
     // sphere
     rot: { label: "\u65CB\u8F6C\u573A V = \u1E91\xD7p", surf: "sphere", uv: (spec, u2, v) => {
@@ -14169,7 +14179,7 @@
       st7.tab = t2;
       for (const b of tabs) b.classList.toggle("on", b.dataset.t === t2);
       for (const [k, p2] of Object.entries(panels)) p2.style.display = k === t2 ? "" : "none";
-      if (t2 === "1") viz6?.resize();
+      if (t2 === "1") viz5?.resize();
       if (t2 === "2") c26?.resize();
     };
     for (const b of tabs) b.addEventListener("click", () => sw(b.dataset.t));
@@ -14177,7 +14187,7 @@
     setup23(host.querySelector("#stage2"), host.querySelector("#panel2"));
   }
   function setup13(stage, panel) {
-    viz6 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
+    viz5 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.5] });
     let mesh = null, grid = null, fieldSegs = null, zeroMarks = [];
     const surfSel = sel(panel, {
       value: "sphere",
@@ -14206,8 +14216,8 @@
       return opts;
     }
     function rebuild() {
-      viz6.remove(mesh, grid, fieldSegs, ...zeroMarks);
-      dragOff4?.();
+      viz5.remove(mesh, grid, fieldSegs, ...zeroMarks);
+      dragOff3?.();
       const opts = fieldOptions();
       fldSel.el.innerHTML = "";
       for (const [k, lbl] of Object.entries(opts)) {
@@ -14222,7 +14232,7 @@
       mesh = meshOf(spec, { color: 4157400, opacity: 0.82 });
       grid = gridLinesOn(spec, { opacity: 0.4 });
       fieldSegs = new xh(new As(), new hh({ color: 8315043, transparent: true, opacity: 0.85 }));
-      viz6.add(mesh, grid, fieldSegs);
+      viz5.add(mesh, grid, fieldSegs);
       draw();
     }
     function fieldUV(spec, u2, v) {
@@ -14252,7 +14262,7 @@
       fieldSegs.geometry.dispose();
       fieldSegs.geometry = geo2;
       const zeros = fieldZeroIndices(spec, (u2, v) => fieldUV(spec, u2, v));
-      for (const m of zeroMarks) viz6.remove(m);
+      for (const m of zeroMarks) viz5.remove(m);
       zeroMarks = [];
       let total = 0;
       for (const z of zeros) {
@@ -14260,7 +14270,7 @@
         total += idx;
         const col = idx > 0 ? 8315043 : 16739179;
         const mk = sphereMark(spec.f(z.u, z.v), col, 0.08);
-        viz6.add(mk);
+        viz5.add(mk);
         zeroMarks.push(mk);
       }
       const chi = st7.surface === "sphere" ? 2 : 0;
@@ -14353,9 +14363,9 @@
     draw2();
   }
   function teardown11() {
-    dragOff4?.();
-    viz6?.dispose();
-    viz6 = null;
+    dragOff3?.();
+    viz5?.dispose();
+    viz5 = null;
     c26?.dispose();
     c26 = null;
   }
@@ -14376,8 +14386,8 @@
   var zh13 = "Hopf \u7EA4\u7EF4\u5316\uFF08\u5377\u2161\uFF09";
   var en12 = "The Hopf Fibration";
   var st8 = { density: "std", phase: 0, playing: false, base: [0.9, 1.2], link2: false, showBase: true };
-  var viz7 = null;
-  var dragOff5 = null;
+  var viz6 = null;
+  var dragOff4 = null;
   function fiberPts(theta, v, tau0, N = 110, R = 1) {
     const c6 = Math.cos(theta / 2), s = Math.sin(theta / 2);
     const pts = [];
@@ -14416,19 +14426,19 @@
   function mount12(host) {
     const stage = host.querySelector("#stage");
     const panel = host.querySelector("#panel");
-    viz7 = new Viz(stage, { cameraPos: [4.2, -3.2, 3.4] });
+    viz6 = new Viz(stage, { cameraPos: [4.2, -3.2, 3.4] });
     const baseSpec = { ...SURFACES.sphere, id: "sphere" };
     const baseMesh = meshOf(baseSpec, { color: 4881112, opacity: 0.5, nu: 24, nv: 36 });
     baseMesh.scale.set(0.55, 0.55, 0.55);
     const baseGrid = gridLinesOn(baseSpec, { color: 2899822, opacity: 0.5 });
     baseGrid.scale.set(0.55, 0.55, 0.55);
-    viz7.add(baseMesh, baseGrid);
+    viz6.add(baseMesh, baseGrid);
     let fiberSegs = new xh(new As(), new hh({ color: 8315043, transparent: true, opacity: 0.55 }));
     let hiLine = polyline([], 16766814, 2.6);
-    viz7.add(fiberSegs, hiLine);
+    viz6.add(fiberSegs, hiLine);
     const bMark = sphereMark([0, 0, 0], 16766814, 0.05);
     const bMarkLine = polyline([], 16739179, 1.2);
-    viz7.add(bMark, bMarkLine);
+    viz6.add(bMark, bMarkLine);
     const densSel = sel(panel, {
       value: "std",
       options: Object.fromEntries(Object.entries(DENSITY).map(([k, v]) => [k, v.label])),
@@ -14495,11 +14505,11 @@
       fiberSegs.geometry.dispose();
       fiberSegs.geometry = geo2;
     }
-    dragOff5 = enableDrag(viz7, baseMesh, baseSpec, (u2, v) => {
+    dragOff4 = enableDrag(viz6, baseMesh, baseSpec, (u2, v) => {
       st8.base = [Math.min(Math.max(u2, 0.05), Math.PI - 0.05), v];
       if (!st8.link2) rebuild();
     });
-    viz7.tick = (dt2) => {
+    viz6.tick = (dt2) => {
       if (st8.playing) {
         st8.phase += dt2 * 0.9;
         rebuild();
@@ -14508,9 +14518,9 @@
     rebuild();
   }
   function teardown12() {
-    dragOff5?.();
-    viz7?.dispose();
-    viz7 = null;
+    dragOff4?.();
+    viz6?.dispose();
+    viz6 = null;
   }
 
   // diffgeo-viz/js/modules/m12-hodge.js
@@ -14530,7 +14540,7 @@
   var en13 = "The Hodge Star Operator";
   var st9 = { a: 1.1, b: 0.5, th: 0.9, ph: 1.1 };
   var cA2 = null;
-  var viz8 = null;
+  var viz7 = null;
   function html13() {
     return `
   <h1 class="mod-title">12. Hodge \u661F\u7B97\u5B50</h1>
@@ -14613,7 +14623,7 @@
     draw();
   }
   function setupB3(stage, panel) {
-    viz8 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.6] });
+    viz7 = new Viz(stage, { cameraPos: [3.4, -2.6, 2.6] });
     const thSl = slider(panel, { label: "\u5411\u91CF v \u7684\u6781\u89D2", min: 0.1, max: Math.PI - 0.1, step: 0.01, value: st9.th, fmt: (v) => (v * 180 / Math.PI).toFixed(0) + "\xB0", cb: (v) => {
       st9.th = v;
       sync();
@@ -14629,7 +14639,7 @@
       new es({ color: 5809919, transparent: true, opacity: 0.35, side: p, depthWrite: false })
     );
     const oriArrow = arrow([0, 0, 0], [1, 0, 0], 8315043, { len: 0.4, head: 0.1 });
-    viz8.add(vArr, disk, oriArrow);
+    viz7.add(vArr, disk, oriArrow);
     function sync() {
       const v = [Math.sin(st9.th) * Math.cos(st9.ph), Math.sin(st9.th) * Math.sin(st9.ph), Math.cos(st9.th)];
       vArr.setDirection(new Ui(...v));
@@ -14646,8 +14656,8 @@
   function teardown13() {
     cA2?.dispose();
     cA2 = null;
-    viz8?.dispose();
-    viz8 = null;
+    viz7?.dispose();
+    viz7 = null;
   }
 
   // diffgeo-viz/js/modules/m13-hyperbolic.js
