@@ -15064,6 +15064,7 @@
     for (const it2 of sidebar.querySelectorAll(".side-item")) {
       it2.classList.toggle("active", it2.dataset.id === mod.id);
     }
+    document.body.classList.remove("sidebar-open");
     content.scrollTop = 0;
     history.replaceState(null, "", "#" + mod.id);
   }
@@ -15073,6 +15074,19 @@
   });
   function init() {
     buildSidebar();
+    const toggle = document.getElementById("menu-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", (e2) => {
+        e2.stopPropagation();
+        document.body.classList.toggle("sidebar-open");
+      });
+    }
+    document.addEventListener("click", (e2) => {
+      const sb = document.getElementById("sidebar");
+      if (document.body.classList.contains("sidebar-open") && sb && !sb.contains(e2.target) && e2.target.id !== "menu-toggle") {
+        document.body.classList.remove("sidebar-open");
+      }
+    });
     const initial = MODULES.find((x) => x.id === location.hash.slice(1)) ?? MODULES[0];
     show(initial);
   }

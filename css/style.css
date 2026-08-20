@@ -35,7 +35,55 @@ body {
 .brand-title { font-size: 19px; font-weight: 700; letter-spacing: 1px; }
 .brand-sub { font-size: 12px; color: var(--text-dim); }
 .hint { font-size: 12px; color: var(--text-dim); }
+
+/* ============================================================
+   移动端响应式（≤ 860px）：侧边栏折叠为抽屉，单列布局
+   ============================================================ */
+@media (max-width: 860px) {
+  #menu-toggle {
+    display: block;
+    background: var(--bg3); color: var(--text);
+    border: 1px solid var(--line); border-radius: 8px;
+    font-size: 20px; line-height: 1; padding: 6px 10px;
+    cursor: pointer; margin-left: 8px;
+  }
+  .hint { display: none; }               /* 窄屏隐藏操作提示 */
+  .brand-sub { display: none; }           /* 隐藏副标题节约空间 */
+  #layout { position: relative; }
+  #sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+    width: 78vw; max-width: 320px;
+    transform: translateX(-105%);
+    transition: transform .25s ease;
+    overflow-y: auto;
+    padding-top: 16px;
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
+  }
+  body.sidebar-open #sidebar { transform: translateX(0); }
+  /* 抽屉打开时的半透明遮罩 */
+  body.sidebar-open::after {
+    content: ''; position: fixed; inset: 0; z-index: 55;
+    background: rgba(0,0,0,.45);
+  }
+  #content { padding: 16px 16px 50px; }
+  .split { flex-direction: column; }
+  .split > .side2 { width: 100%; }
+  .stage { height: 420px; }
+  .side2 .stage, .stage#stage1b, #stageB, #stageB2, #stage1b { height: 320px; }
+  .panel-row { gap: 6px 10px; }
+  .btn { padding: 6px 10px; font-size: 12.5px; }
+  input[type=range] { width: 110px; }
+  .mod-title { font-size: 20px; }
+  .mod-intro p { font-size: 14px; }
+  .roadmap { flex-direction: column; }
+  .home-grid { grid-template-columns: 1fr; }
+  #footbar { font-size: 11px; padding: 6px 14px; }
+  /* 小屏读取框勿遮挡场景 */
+  .stage-readout { font-size: 11px; padding: 4px 8px; max-width: 70%; white-space: normal; }
+}
 #layout { flex: 1; display: flex; min-height: 0; }
+/* 手机端顶栏菜单按钮（默认隐藏，移动端显示） */
+#menu-toggle { display: none; }
 #sidebar {
   width: 268px; flex: none;
   background: var(--bg2);
